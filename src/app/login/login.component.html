@@ -1,0 +1,39 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="sidenav" style="width: 65%;">
+         <div class="login-main-text" style="margin-top: 130px;">
+            <h2 id="title">Recruitment Interview<br>Scheduling App</h2>
+             <!-- <p>Login from here to access.</p>  -->
+		 </div>
+		 <div>
+
+		 </div>
+	  </div>
+	
+
+<div class="loginBox" >
+	<div class="user">
+		</div>
+	<h2>Log In Here</h2>
+	<form #frm="ngForm" (ngSubmit)="submit()">
+	   <div class="form-group">
+		   <label>User Name</label>
+		   <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="userId" #name="ngModel" placeholder="User Name" required>
+		</div><div class="form-group">
+				<div *ngIf="name.touched&&!name.valid" style="color: #ef4048">Username is required</div>
+
+		   <label>Password</label>
+		   <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" #pass="ngModel" [(ngModel)]="pwd" required>
+		</div>
+		<div *ngIf="pass.touched&&!pass.valid" style="color: #ef4048">Password is required</div>
+
+			<input type="submit" [disabled]="!pass.valid && !name.valid" name="" value="LOGIN" >
+  
+	</form>
+	<div class="small mt-5">© 2019 Miracle Software Systems, Inc.</div>
+	<div class="small mt-1">Developed with <span class="fa fa-fw fa-heart text-danger"></span> by Miracle Interns
+	</div>
+	
+  </div>
+ 

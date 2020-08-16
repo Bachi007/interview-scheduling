@@ -1,0 +1,70 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="sidenav" style="width: 40%;">
+         <div class="login-main-text" style="margin-top: 130px;">
+            <h2>Recruitment Interview<br> Scheduling App</h2>
+            <!-- <p>Login from here to access.</p> -->
+         </div>
+      </div>
+          
+   <!--   <div class="main" style="margin-left: 53%;">
+            <div class="card" style="width: 70%;background-color: #00aae7;margin-top:30%">
+                  <div class="card-body">
+                                       <form>
+                  
+                        <div class="form-group">
+                           <label>User Name</label>
+                           <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="userId" placeholder="User Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                           <label>Password</label>
+                           <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="pwd" required>
+                        </div>
+      
+                        <button type="button" (click)="submit()" class="btn btn-success" style="margin-left:150px">Login</button>
+                        
+                     </form>
+                  </div>
+                </div>
+         <div class="col-md-6 col-sm-12" style="margin-left: 200px;margin-top:-10%">
+            <div class="login-form" >
+               <form>
+                  
+                  <div class="form-group">
+                     <label>User Name</label>
+                     <input type="text" class="form-control" id="userId" name="userId" [(ngModel)]="userId" placeholder="User Name" required>
+                  </div>
+                  
+                  <div class="form-group">
+                     <label>Password</label>
+                     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="pwd" required>
+                  </div>
+
+                  <button type="button" (click)="submit()" class="btn btn-black" style="margin-left: 140px">Login</button>
+                  
+               </form>
+            </div>
+         </div> -->
+      <!-- </div>--> 
+      
+   <!-- </div> -->
+
+
+   <div class="loginBox" style="margin-left: 270px">
+         <div class="user">
+             </div>
+         <h2>Log In Here</h2>
+         <form>
+             <p>UserId</p>
+             <input type="text" name="userid" placeholder="Enter UserID" [(ngModel)]="userid">
+             <p>Password</p>
+             <input type="password" name="password" placeholder="Enter your password" [(ngModel)]="password">
+             <a>
+                 <input type="submit" name="" value="LOGIN" (click)="onLoginSubmit()" >
+             </a>
+             <a routerLink="#">Forget Password ?</a>
+         </form>
+       </div>

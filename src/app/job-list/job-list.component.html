@@ -1,0 +1,145 @@
+<!-- <p class="work">
+  dashboard works!
+</p> -->
+<!-- *ngIf="AuthservicesService.managerLoggedIn()"  *ngIf=authService.managerLoggedIn()-->
+<!-- Jobs List for Manager -->
+<div *ngIf=authService.managerLoggedIn()>
+  
+<div class="row justify-content-end">
+  <div class="col-10">
+    <div class="container ">
+      <div id="top">
+      <h4>Requirement List : </h4>
+    </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Job</th>
+            <th>Description</th>
+            <th>Techstack</th>
+            <th>required</th>
+            <th>submitted</th>
+            <th>selected</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of managerProjectDetails; let index = index">
+            <td>{{index+1}}</td>
+            <td>{{project.pName}}</td>
+            <td>{{project.pDescription}}</td>
+            <td>{{project.techStach}}</td>
+            <td>{{project.required}}</td>
+            <td>{{project.submitted}}</td>
+            <td>{{project.selected}}</td>
+
+
+          </tr>
+
+        </tbody>
+      </table>
+      <br><br>
+</div>
+</div></div></div>
+
+
+
+<!--  *ngIf="AuthservicesService.recruiterLoggedIn()"*ngIf=authService.recruiterLoggedIn( -->
+<div *ngIf=authService.recruiterLoggedIn()>
+  
+  <div class="row justify-content-end">
+    <div class="col-10">
+      <div class="container ">
+      <!-- Jobs List for recruiter : -->
+      <div id="top">
+      <h4>Jobs List for Recruiter : </h4>
+    </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Job</th>
+            <th>Description</th>
+            <th>Techstack</th>
+            <th>required</th>
+            <th>submitted</th>
+            <th>add User</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projectDetails; let index = index">
+            <td>{{index+1}}</td>
+            <td>{{project.pName}}</td>
+            <td>{{project.pDescription}}</td>
+            <td>{{project.techStach}}</td>
+            <td>{{project.required}}</td>
+            <td>{{project.submitted}}</td>
+            <td>
+              <button type="button" class="btn btn-success" (click)="openModal(template,project.pName)">AddUser</button>
+
+            </td>
+
+            
+
+          </tr>
+
+        </tbody>
+      </table>
+</div></div></div></div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> Candidate </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form #frm="ngForm" (ngSubmit)="addCandidate(frm)">
+          <div class="container">
+
+        <div class='row '>     
+            <div class="col-sm-8">
+          <label><b>Project Name</b></label>
+            <input type="text" placeholder="projectName" name="Name" [(ngModel)]="job.pName" disabled required >
+          </div>
+          
+          <div class="col-sm-4">
+              <label><b>Required</b></label>
+                <input type="text" placeholder="required" name="required" [(ngModel)]="job.required" disabled required >
+              </div>
+        </div>
+          <label><b>Name</b></label>
+          <input type="text" placeholder="Enter name" name="uName" [(ngModel)]="uName" #name="ngModel" required>
+          <div *ngIf="name.touched&&!name.valid" style="color: #ef4048">Username is required</div>
+          <label for="description"><b>Email</b></label>
+          <input type="text" placeholder="Enter email" name="Email" [(ngModel)]="uEmail" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  required>
+          
+          <div *ngIf="email.touched&&email.errors?.required" style="color: #ef4048">Email is required</div>
+          <div *ngIf="email.touched &&email.errors?.pattern" style="color: #ef4048">Email is Invalid</div>
+          
+          <label><b>Phone.No</b></label>
+          <input type="text" placeholder="Enter name" name="Phone" [(ngModel)]="uPhone" maxlength="10" minlength="10"  #phone="ngModel" pInputText pKeyFilter="int"required>
+          <div *ngIf="phone.touched&&phone.errors?.required" style="color: #ef4048">Phone Number is required</div>
+         <div *ngIf="phone.touched&&phone.errors?.minlength" style="color: #ef4048">Phone Number is Invalid</div>
+      
+          
+          <label for="description"><b>Techstack</b></label>
+          <input type="text" placeholder="Enter Techstack" name="Techstack" [(ngModel)]="uTechstack" #techstack="ngModel" required>
+          <div *ngIf="techstack.touched&&!techstack.valid" style="color: #ef4048">TechStack is required</div>
+
+          <label for="description"><b>resume</b></label>
+            <input type="file" (change)="upload($event)" name="resume"  required/>
+            <div *ngIf="spinner" class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+          <div class="container" style="background-color:#f1f1f1">
+              <button  [disabled]="!frm.valid" class="btn btn-primary" type="submit" (click)="modalRef.hide()"  >Submit</button>
+        </div>
+      </form>
+  </div>
+</ng-template>

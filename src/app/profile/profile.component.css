@@ -1,0 +1,47 @@
+/* #back{    background-image: url(/assets/max.jpg);
+    padding-top: 82px;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 0%;
+    padding-bottom: 192px;
+}
+#pad{
+    padding-top: 49px;
+    height: 48px;
+}
+.container{
+    width:65% !important;
+    margin-top: 20px;
+
+} */
+/* https://i.ytimg.com/vi/Ct9F2sW4pbo/maxresdefault_live.jpg */
+
+#back{    
+    background-image: url(/assets/max.jpg);
+    padding-top: 3px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 0%;
+    padding-bottom: 175px;
+}
+#pad{
+    padding-top: 49px;
+    height: 30px;
+}
+.container{
+    width:20% !important;
+    margin-top: 135px;
+    margin-left:290px;
+
+}
+#first{
+    padding-top:40px;
+}
+
+img{
+    border:10px;
+    border-radius: 90px;
+    width:150px;
+    height:150px;
+    margin-left:60px;
+}

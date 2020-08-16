@@ -1,0 +1,45 @@
+.justify-content-end {
+    justify-content: center !important;
+}
+.table td, .table th {
+    padding: .75rem;
+    padding-bottom: 0 !important;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0 !important;
+    margin-left: -15px;
+}
+#Interviewer{
+    
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+}
+
+#top{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+mat-icon {
+    cursor: pointer;
+}
+#toptop{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-top: 6px;
+    padding-left: 7px;
+
+}
+
+.pointerClass{
+    cursor: pointer;
+}
+.noDropClass{
+    cursor: no-drop;
+}

@@ -1,0 +1,142 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" [(opened)]="opened">
+    <mat-toolbar id="titel">
+        <img class="card-img-top .col-sm-1" src="../assets/menu.png" alt="Card image" style="    width: 118%;
+        height: 63px;
+        margin-left: -15px;">
+
+    </mat-toolbar>
+    <mat-nav-list>
+      <!-- sidebar content -->
+      <a mat-list-item routerLink="/dashboard/jobslist" *ngIf=!authServices.developerLoggedIn()>Job-List</a>
+      <a mat-list-item routerLink="/dashboard/candidatelist">Candidate-List</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- navvigation content -->
+
+    <mat-toolbar color="primary" class='navbar'>
+      <span id="menu">
+        <mat-icon (click)="opened=!opened">view_list</mat-icon>
+      </span>
+
+
+      <div class="col md 0">RECRUITEMENT INTERVIEW SCHEDULING</div>
+
+      <div>
+        <span routerLink="/dashboard/profile"> <button mat-mini-fab 
+          class="btn btn-success">
+            <mat-icon>face</mat-icon>
+          </button>
+        </span>
+        <!-- add user -->
+        <span *ngIf=authServices.managerLoggedIn()> <button
+           mat-mini-fab 
+           type="button"
+          class="btn btn-success" 
+          (click)="openModal(template)"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </span>
+        <!-- add job -->
+        <span *ngIf=authServices.recruiterLoggedIn() id="circleButton"> <button mat-mini-fab aria-label="Example icon-button with a heart icon" type="button"
+            class="btn btn-success" (click)="openModal(template1)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </span>
+
+        <span> <button mat-mini-fab aria-label="Example icon-button with a heart icon" (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
+          </button>
+        </span>
+
+      </div>
+    </mat-toolbar>
+    <!-- comonents content -->
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- job adding template -->
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Requirement</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #frm="ngForm" (ngSubmit)="addProject(frm)">
+      <div class="container">
+        <label><b>Project Name</b></label>
+        <input type="text" placeholder="Enter name" name="name" [(ngModel)]="name" #projectName="ngModel" required>
+        <div *ngIf="projectName.touched&&!projectName.valid" style="color: #ef4048;font-size: 10px">Project Name is required</div>
+
+        <label><b>Decription :</b></label>
+        <textarea placeholder="Enter description" class="form-control col-xs-12" rows="3" cols="50" [(ngModel)]="description" #desc="ngModel"
+            [ngModelOptions]="{standalone: true}" required></textarea>
+        <div *ngIf="desc.touched&&!desc.valid" style="color: #ef4048">Description is required</div>
+
+        <label for="techstack"><b>techStack</b></label>
+        <input type="text" placeholder="Enter techStack" name="techStack" [(ngModel)]="techstack" #tech="ngModel" required>
+        <div *ngIf="tech.touched&&!tech.valid" style="color: #ef4048">TechStack is required</div>
+        <label><b>required</b></label>
+        <input type="text" placeholder="Enter required" name="required" [(ngModel)]="required" #req="ngModel" required>
+        <div *ngIf="req.touched&&!req.valid" style="color: #ef4048">Please Enter The Requirements</div>
+
+          <button [disabled]="!frm.valid" class="btn btn-success" (click)="modalRef.hide()" type="submit">Submit</button>
+  </div>
+  </form>
+  </div>
+  </ng-template>
+
+<!-- candidate adding template -->
+
+  <ng-template #template1>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Candidate</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #fom="ngForm" (ngSubmit)="addCandidate(fom)">     
+            <div class="container">
+                <select id="country" (change)="projectName($event)" >
+                    <option value="au" disabled>select</option>
+                    <option *ngFor="let project of projectDetails">{{project.pName}}</option>
+                </select>
+              <label><b>Name</b></label>
+              <input type="text" placeholder="Enter name" name="Name" [(ngModel)]="uName" #name="ngModel" required>
+              <div *ngIf="name.touched&&!name.valid" style="color: #ef4048">Username is required</div>
+              <label for="description"><b>Email</b></label>
+              <input type="text" placeholder="Enter email" name="Email" [(ngModel)]="uEmail" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+              <div *ngIf="email.touched&&email.errors?.required" style="color: #ef4048">Email is required</div>
+              <div *ngIf="email.touched &&email.errors?.pattern" style="color: #ef4048">Email is Invalid</div>
+  
+              <label><b>Phone.No</b></label>
+              <input type="text" placeholder="Enter name" name="Phone" maxlength="10" minlength="10" [(ngModel)]="uPhone" #phone="ngModel" pInputText pKeyFilter="int" required>
+              <div *ngIf="phone.touched&&phone.errors?.required" style="color: #ef4048">Phone Number is required</div>
+              <div *ngIf="phone.touched&&phone.errors?.minlength" style="color: #ef4048">Phone Number is Invalid</div>
+             
+              <label for="description"><b>Techstack</b></label>
+              <input type="text" placeholder="Enter Techstack" name="Techstack" [(ngModel)]="uTechstack" #techstack="ngModel" required>
+              <div *ngIf="techstack.touched&&!techstack.valid" style="color: #ef4048">TechStack is required</div>
+
+              <label for="description"><b>resume : &nbsp;</b></label>
+              <input type="file"  (change)="upload($event)" name="resume"  required/>
+              <div *ngIf="spinner" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+
+            </div>
+              <div class="container" style="background-color:#f1f1f1">
+                  <button [disabled]="!fom.valid" class="btn btn-success" type="submit" (click)="modalRef.hide()">Submit</button>
+            </div>
+          </form>
+      </div>
+    </ng-template>

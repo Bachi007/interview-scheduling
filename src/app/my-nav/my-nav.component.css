@@ -1,0 +1,88 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+mat-sidenav-container{
+  height: 100%;
+}
+
+mat-sidenav{
+  background-color: #d3d6d2;
+  width:200px;
+}
+
+.navbar{
+  justify-content: space-between;
+    box-shadow: 5px black ;
+
+}
+span{
+  padding-right: 1rem;
+}
+#menu{
+  cursor: pointer;
+}
+.work{
+  margin-left:18% !important;
+  margin-right: 19px !important;
+
+}
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.justify-content-end {
+  justify-content: center !important;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 9px !important; 
+  margin-left: -15px !important;
+}
+#titel{
+  background-color: #2368a0;
+  color: #ffffff
+
+}
+.mat-toolbar.mat-primary {
+  background: #2368a0 !important;
+  color: #fff;
+}
+#icon{
+  position: absolute !important;
+}
+select {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+.mat-fab, .mat-flat-button, .mat-mini-fab, .mat-raised-button {
+  background-color: #b7b2b3 ;
+}
+

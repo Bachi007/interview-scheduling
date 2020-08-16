@@ -1,0 +1,402 @@
+<!-- candidate list when manager loggedIn -->
+
+<div *ngIf=authServices.managerLoggedIn()>
+  <div class="row justify-content-end">
+    <div class="col-10">
+      <div class="container ">
+        <div class="row" style="background-color:#c6d6d33b">
+          <h4 id="title" class="col-md-9" id="top">Candiadte List for Manager : </h4>
+          <div id="custom-search-input" class="col-md-3 pull-left">
+            <div class="input-group">
+              <input type="text" class="  search-query form-control" placeholder="Search" id="top"
+                [(ngModel)]="searchValue" />
+              <span class="input-group-btn">
+                <mat-icon id="icon" (click)="searchCandidate()" id="toptop">search</mat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>mobile number</th>
+              <th>skills</th>
+              <th>resume</th>
+              <th>Select Interviewer</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let candidate of managerCandidates; let index = index">
+              <td>{{index+1}}</td>
+              <td>{{candidate.userName}}</td>
+              <td>{{candidate.userMail}}</td>
+              <td>{{candidate.phoneNo}}</td>
+              <td>{{candidate.skillSet}}</td>
+              <td>
+                <div class="form-group">
+                  <mat-icon id="download" (click)="openModal1(template2,candidate._id)">remove_red_eye</mat-icon>
+                </div>
+              </td>
+              <td *ngIf="candidate.scheduleStatus==false;else disableSelect">
+                <select id="Interviewer" (change)="interviewerName($event)">
+                  <option value="au" disabled>select</option>
+
+                  <option *ngFor="let employee of employeeDetails">{{employee.empName}}</option>
+                </select>
+              </td>
+              <ng-template #disableSelect>
+                <td>
+                  <select id="Interviewer" (change)="interviewerName($event)" disabled>
+                    <option value="au" disabled>select</option>
+
+                    <option *ngFor="let employee of employeeDetails">{{employee.empName}}</option>
+                  </select>
+                </td>
+              </ng-template>
+              <td>
+                <div class="form-group" *ngIf="candidate.scheduleStatus==false;else disable">
+                  <button type="submit" class="btn btn-primary btn-block" (click)="assign(candidate._id)">Assign</button>
+
+                </div>
+                <ng-template #disable>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" (click)="assign(candidate._id)"
+                      [disabled]="true">Assign</button>
+
+                  </div>
+                </ng-template>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- candidate list when recruiter loggedIn -->
+
+<div *ngIf=authServices.recruiterLoggedIn()>
+
+  <div class="row justify-content-end">
+    <div class="col-10">
+      <div class="container ">
+        <div id="top">
+          <h4>Candidate List for Recruiter: </h4>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>interviewerName</th>
+              <th>Email</th>
+              <th>mobile number</th>
+              <th>skills</th>
+              <th>resume</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let candidate of candidates; let index = index">
+              <td><b>{{index+1}}</b></td>
+              <td>{{candidate.userName}}</td>
+              <td>{{candidate.interviewerName}}</td>
+              <td>{{candidate.userMail}}</td>
+              <td>{{candidate.phoneNo}}</td>
+              <td>{{candidate.skillSet}}</td>
+              <td>
+                <div class="form-group">
+                  <mat-icon (click)="openModal1(template2,candidate._id)">remove_red_eye</mat-icon>
+                </div>
+
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn-block"
+                  (click)="openModal(template,candidate.userName,index)" [disabled]="candidate.scheduleStatus">Schedule</button>
+
+              </td>
+              <td>
+                <mat-icon (click)="openUrl(candidate._id)" [ngClass]="candidate.scheduleStatus?'pointerClass':'noDropClass'">video_call</mat-icon>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- candidate list when developer loggedIn -->
+
+<div *ngIf=authServices.developerLoggedIn()>
+
+
+  <div class="row justify-content-end">
+    <div class="col-10">
+      <div class="container ">
+        <div class="row" style="background-color:#c6d6d33b">
+          <h4 id="title" class="col-md-9" id="top">Candiadte List for Interviewer : </h4>
+          <!-- <div id="custom-search-input" class="col-md-3 pull-left">
+            <div class="input-group">
+              <input type="text" class="  search-query form-control" placeholder="Search" id="top"
+                [(ngModel)]="searchValue" />
+               <span class="input-group-btn" *ngFor="let candidate of iCandidates; let index = index">
+                <mat-icon id="icon" (click)="searchCandidateForDev()" id="toptop">search</mat-icon>
+              </span> 
+            </div>
+          </div> -->
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Skills</th>
+              <th>Resume</th>
+              <th>Action</th>
+              <th>FeedBack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let candidate of iCandidates; let index = index">
+              <td><b>{{index+1}}</b></td>
+              <td>{{candidate.userName}}</td>
+              <td>{{candidate.userMail}}</td>
+              <td>{{candidate.phoneNo}}</td>
+              <td>{{candidate.skillSet}}</td>
+              <td>
+                <div class="form-group">
+                  <mat-icon id="download" (click)="openModal1(template2,candidate._id)" >remove_red_eye</mat-icon>
+                </div>
+              </td>
+
+              <td>
+                <div class="form-group">
+                  <mat-icon (click)="openDevUrl(candidate._id)">video_call</mat-icon>
+                </div>
+              </td>
+              <td *ngIf="sample.empName == candidate.interviewerName">
+                <div class="form-group">
+                  <button class="btn btn-outline-warning" (click)="openModal3(template3,candidate._id)">feedback
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> Schedule Call </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="container">
+        <div class="form-group">
+          <label for="iname">Interviewer</label>
+          <input type="text" class="form-control" id="iname" name="iname" placeholder="InterviewerName"
+            [(ngModel)]="person.interviewerName" required readonly>
+        </div>
+        <div class="form-group">
+          <label for="iemail">Interviewer_Email</label>
+          <input type="email" class="form-control" id="iEmail" name="iemail" placeholder="Interviewer_Email"
+            [(ngModel)]="InterviewerPerson.email" required readonly>
+        </div>
+        <div class="form-group">
+          <label for="cname">Candidate</label>
+          <input type="text" class="form-control" id="cname" name="cname" placeholder="Candidate_Name"
+            [(ngModel)]="person.userName" [ngModelOptions]="{standalone: true}" required readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="cemail">Candidate_Email</label>
+          <input type="email" class="form-control" id="cemail" name="cemail" placeholder="Candidate_mail"
+            [(ngModel)]="person.userMail" required readonly>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <!-- <form class="form-inline"> -->
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="modelData" [(ngModel)]="modelData"
+                  ngbDatepicker #d="ngbDatepicker" [minDate]="minDate" style="margin-top: 39px;">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" style="margin-top: 39px; margin-right: 10px"
+                    (click)="d.toggle()" type="button">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+
+          <div class="col-md-6">
+            <form style="margin-left: 22px;">
+
+              <ngb-timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
+
+
+
+
+
+            </form>
+
+          </div>
+          <label>Duration: </label>
+          <input type='number' class="form-control" [(ngModel)]="duration" #dure="ngModel"
+            [ngModelOptions]="{standalone: true}" style=" margin-left: 5px;   width: 107px;
+            margin-bottom: 12px;">
+          <div *ngIf="dure.touched&&!dure.valid" style="color: #ef4048">duration is required</div>
+          <!-- <div *ngIf="dure.touched &&dure.errors?.pattern" style="color: #ef4048">duration is Invalid</div> -->
+
+
+
+        </div>
+
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <div class="btn" align="center">
+          <button class="btn btn-success" type="submit" (click)="schedule()" (click)="modalRef.hide()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template #template3>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> Give FeedBack </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="container">
+        <div class="form-group">
+          <!---<input type="textarea" name="data" value=""/>
+                <textarea class="form-control" style="min-width: 100%" height="100%"></textarea>--->
+          <textarea class="form-control col-xs-12" rows="7" cols="50" [(ngModel)]="feedbackValue"
+            [ngModelOptions]="{standalone: true}"></textarea>
+
+
+        </div>
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <div class="btn" align="center">
+          <button class="btn btn-success" type="submit" (click)=" giveFeedback()"
+            (click)="modalRef.hide()">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+
+<div>
+  <ng-template #template2>
+    <!-- <div> -->
+    <!-- <div class="modal-body"> -->
+    <!-- <div class="form-group" style="width:800px; height: 600px;"> -->
+        <div class="row">
+
+            <div class="col-md-12">
+              <div class="" style="height: 600px;
+              margin-left: -50px;
+              margin-right: -84px;
+              padding: 0px 20px;">
+
+                 <!-- <img src="assets/img/Untitled.png" style="border: 1px solid black;width:100%"> -->
+                <iframe [src]="weboutput" 
+                  style="border: 1px solid black;width:100%; height:100%"></iframe>
+              </div>
+              
+            </div>
+          </div> <!-- </div>
+        </div> -->
+    <!-- </div> -->
+  </ng-template>
+</div>
+
+<!-- resume view modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+              <div class="modal-body p-3">
+
+                      <div class="row">
+
+                        <div class="col-md-12">
+                          <div class="" style="height:600px;margin: auto; padding: 0px 20px">
+                            <!-- <img src="assets/img/Untitled.png" style="border: 1px solid black;width:100%"> -->
+                            <iframe src="https://firebasestorage.googleapis.com/v0/b/recruitement-3cef0.appspot.com/o/resumes%2F1560189742631%2FfileName?alt=media&token=cb357062-955d-4898-8ed5-7dee67899a81"
+                              style="border: 1px solid black;width:100%; height:100%"></iframe>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!-- <ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> Candidate </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form #frm="ngForm" (ngSubmit)="addCandidate(frm)">     
+        <div class="container">
+          <label><b>Name</b></label>
+          <input type="text" placeholder="Enter name" name="Name" [(ngModel)]="uName" required>
+    
+          <label for="description"><b>Email</b></label>
+          <input type="text" placeholder="Enter email" name="Email" [(ngModel)]="uEmail" required>
+          <label><b>Phone.No</b></label>
+          <input type="text" placeholder="Enter name" name="Phone" [(ngModel)]="uPhone" required>
+          <label for="description"><b>Techstack</b></label>
+          <input type="text" placeholder="Enter Techstack" name="Techstack" [(ngModel)]="uTechstack" required>
+          <label for="description"><b>resume</b></label><br>
+          <button class="btn btn-info sm pull-right" >upload</button>
+        </div>
+          <div class="container" style="background-color:#f1f1f1">
+              <button class="btn btn-success" type="submit" >Submit</button>
+        </div>
+      </form>
+  </div>
+</ng-template> -->
+
+<!-- for viewing the resume -->
